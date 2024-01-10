@@ -3,6 +3,11 @@ const staticPath = path.join(__dirname, '../../public');
 const magSchema = require('../model/msgmodel')
 const visiterSchema = require('../model/visiterCount')
 
+exports.home = async (req, resp) => {
+    console.log(56456);
+    resp.sendFile('index.html', { root: staticPath });
+}
+
 exports.count = async (req, resp) => {
     try {
         let visitor = await visiterSchema.findOne(); // Find the visitor entry, assuming there's only one
