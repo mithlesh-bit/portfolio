@@ -1,9 +1,22 @@
 const path = require('path')
 const staticPath = path.join(__dirname, '../../public');
 const magSchema = require('../model/msgmodel')
+const visiterSchema = require('../model/visiterCount')
 
-exports.home = async (req, resp) => {
-    resp.sendFile('index.html', { root: staticPath });
+exports.count = async (req, resp) => {
+    try {
+        let visitor = await visiterSchema.findOne(); // Find the visitor entry, assuming there's only one
+        if (!visitor) {
+            visitor = new visiterSchema({ count: 0 }); // If no entry exists, create a new one
+        }
+
+        visitor.count += 1; // Increment the count
+        await visitor.save(); // Save the updated count
+
+        return resp.status(201).json({ success: true, count: visitor.count, message: 'Count incremented' });
+    } catch (err) {
+        return resp.status(500).json({ success: false, message: 'Error while counting visitors' });
+    }
 };
 
 

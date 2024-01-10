@@ -42,7 +42,10 @@
 
       <h1><a href="index.html">Mithlesh Rawte</a></h1>
       <h2>I'm a passionate <span>software developer</span> from Chhattishgarh</h2>
-
+      <a href="./assets/scss/CV-CODED.pdf" download="CV-CODED.pdf">
+        <h2><span> Download CV <span class="bi bi-download"></span></span></h2>
+        <h2><span id="visitorCount">Visitors: { }</span></h2>
+      </a>
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link active" href="#header">Home</a></li>
@@ -882,6 +885,31 @@
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
   <script src="assets/js/main.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      fetch('/count', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // Add any required body or headers for your POST request here
+        body: JSON.stringify({ /* Your payload here */ })
+      })
+        .then(response => response.json())
+        .then(data => {
+          const visitorSpan = document.getElementById('visitorCount');
+          if (data.success) {
+            visitorSpan.textContent = visitorSpan.textContent.replace('{ }', `{ ${data.count} }`); // Update the count in the HTML
+          } else {
+            visitorSpan.textContent = visitorSpan.textContent.replace('{ }', '{ Error fetching count }'); // Show an error message if unsuccessful
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    });
+  </script>
 
 </body>
 
