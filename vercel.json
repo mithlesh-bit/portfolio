@@ -8,8 +8,12 @@
     ],
     "routes": [
         {
+            "src": "/count",
+            "dest": "./src/index.js"
+        },
+        {
             "src": "/(.*)",
-            "dest": "/"
+            "dest": "/public/$1"
         }
     ]
 }
