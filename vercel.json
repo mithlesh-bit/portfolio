@@ -1,27 +1,16 @@
 {
     "version": 2,
+    "name": "mithlesh",
     "builds": [
         {
-            "src": "./src/index.js",
-            "use": "@vercel/node",
-            "config": {
-                "maxLambdaSize": "50mb"
-            }
+            "src": "index.js",
+            "use": "@vercel/node"
         }
     ],
     "routes": [
         {
-            "src": "/api/(.*)",
-            "dest": "/src/index.js"
-        },
-        {
             "src": "/(.*)",
-            "dest": "/public/$1",
-            "continue": true
+            "dest": "/index.js"
         }
-    ],
-    "env": {
-        "dburl": "mongodb+srv://mithlesh:1234@cluster0.tnbojkw.mongodb.net/newportfolio",
-        "port": 8000
-    }
+    ]
 }
